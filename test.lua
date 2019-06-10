@@ -18,12 +18,12 @@ local test = function(format, expected, gotten)
 end
 
 local markdown = function()
-  local expected = [[| name           | address             | age |
-  |----------------|---------------------|-----|
-  | Angela Ziegler | Zurich, Switzerland | 40  |
-  | Jack Morrison  | Nowhere             | 76  |
-  | Zenyatta       | Nepal               |     |
-  ]]
+  local expected = [[| Name           | Address             | Age |
+|----------------|---------------------|-----|
+| Angela Ziegler | Zurich, Switzerland | 40  |
+| Jack Morrison  | Nowhere             | 76  |
+| Zenyatta       | Nepal               |     |
+]]
   local gotten = tablua.tabulate(header, stuff, 'md')
   test('md', expected, gotten)
 end
