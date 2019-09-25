@@ -28,8 +28,20 @@ local markdown = function()
   test('md', expected, gotten)
 end
 
+local orgMode = function()
+  local expected = [[| Name           | Address             | Age |
+|----------------+---------------------+-----|
+| Angela Ziegler | Zurich, Switzerland | 40  |
+| Jack Morrison  | Nowhere             | 76  |
+| Zenyatta       | Nepal               |     |
+]]
+  local gotten = tablua.tabulate(header, stuff, 'org')
+  test('org', expected, gotten)
+end
+
 local scenarios = {
-  markdown
+  markdown,
+  orgMode
 }
 
 for i = 1,#scenarios do
