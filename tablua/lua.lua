@@ -98,11 +98,49 @@ local orgMode = function(header, rows)
   return outlet
 end
 
+function to_json(x)
+  if x == nil then
+    return "null"
+  elseif type(x) == 'string' then
+    return '"' .. x .. '"'
+  else
+    return x
+  end
+end
+
+function json(header, rows)
+  local outlet = "[\n"
+  local row_count = #header
+  for j = 1, #rows do
+    local record = "  {\n"
+
+    local row = rows[j]
+    for i, key in pairs(header) do
+      local value = row[i]
+      record = record .. string.format('    "%s": %s', key, to_json(value))
+      if i < row_count then
+        record = record .. ","
+      end
+      record = record .. "\n"
+    end
+
+    record = record .. "  }"
+    if j < #rows then
+      record = record .. ","
+    end
+    record = record .. "\n"
+
+    outlet = outlet .. record
+  end
+  return outlet .. "]\n"
+end
+
 function tablua.tabulate(header, rows, format)
   local outlet = nil
   local ops = {
     md = markdown,
-    org = orgMode
+    org = orgMode,
+    json = json
   }
   local op = ops[format]
 

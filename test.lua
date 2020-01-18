@@ -39,9 +39,34 @@ local orgMode = function()
   test('org', expected, gotten)
 end
 
+local json = function()
+  local expected = [[
+[
+  {
+    "Name": "Angela Ziegler",
+    "Address": "Zurich, Switzerland",
+    "Age": 40
+  },
+  {
+    "Name": "Jack Morrison",
+    "Address": "Nowhere",
+    "Age": 76
+  },
+  {
+    "Name": "Zenyatta",
+    "Address": "Nepal",
+    "Age": null
+  }
+]
+]]
+  local gotten = tablua.tabulate(header, stuff, 'json')
+  test('json', expected, gotten)
+end
+
 local scenarios = {
   markdown,
-  orgMode
+  orgMode,
+  json
 }
 
 for i = 1,#scenarios do
